@@ -10,7 +10,6 @@ return {
   require 'clowiie.plugins.lazydev',
   require 'clowiie.plugins.linting',
   require 'clowiie.plugins.lualine',
-  require 'clowiie.plugins.luvit-meta',
   require 'clowiie.plugins.mini',
   require 'clowiie.plugins.nvim-lspconfig',
   require 'clowiie.plugins.nvim-spectre',
