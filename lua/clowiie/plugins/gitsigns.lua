@@ -11,12 +11,18 @@ return {
   --   --   changedelete = { text = '~' },
   --   -- },
   -- },
-  config = function()
-    local gitsigns = require 'gitsigns'
+  opts = {
+    on_attach = function(bufnr)
+      local gitsigns = require 'gitsigns'
 
-    gitsigns.setup {}
+      local function map(mode, l, r, opts)
+        opts = opts or {}
+        opts.buffer = bufnr
+        vim.keymap.set(mode, l, r, opts)
+      end
 
-    vim.keymap.set('n', '<leader>gB', '<cmd>lua require("gitsigns").blame()<CR>', { desc = 'Git Blame' })
-    vim.keymap.set('n', '<leader>gb', '<cmd>lua require("gitsigns").blame_line()<CR>', { desc = 'Git Blame Line' })
-  end,
+      map('n', '<leader>gB', gitsigns.blame, { desc = 'Git Blame' })
+      map('n', '<leader>gb', gitsigns.blame_line, { desc = 'Git Blame Line' })
+    end,
+  },
 }
