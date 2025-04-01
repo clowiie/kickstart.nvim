@@ -63,6 +63,7 @@ return {
       { '<leader>x', group = 'Diagnostics' },
       { '<leader>q', group = '[Q]uit' },
       { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+      { '<leader>g', group = '[G]it' },
     },
   },
 }
