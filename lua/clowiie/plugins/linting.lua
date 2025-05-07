@@ -23,7 +23,7 @@ return {
     vim.api.nvim_create_autocmd('BufWritePre', {
       pattern = { '*.tsx', '*.ts', '*.jsx', '*.js' },
       -- command = 'silent! EslintFixAll',
-      command = 'EslintFixAll',
+      command = 'LspEslintFixAll',
       group = lint_augroup,
     })
 
