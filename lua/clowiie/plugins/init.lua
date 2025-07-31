@@ -18,6 +18,6 @@ return {
   require 'clowiie.plugins.telescope',
   require 'clowiie.plugins.todo-comments',
   require 'clowiie.plugins.treesitter',
-  require 'clowiie.plugins.vim-sleuth',
+  require 'clowiie.plugins.guess-indent',
   require 'clowiie.plugins.which-key',
 }
