@@ -1,7 +1,9 @@
 return {
   'nvim-pack/nvim-spectre',
   config = function()
-    require('spectre').setup {
+    local nvimSpectre = require 'spectre'
+
+    nvimSpectre.setup {
       replace_engine = {
         ['sed'] = {
           cmd = 'sed',
@@ -32,7 +34,7 @@ return {
     -- set keymaps
     local keymap = vim.keymap -- for conciseness
 
-    keymap.set('n', '<leader>S', '<cmd>lua require("spectre").toggle()<CR>', {
+    keymap.set('n', '<leader>S', nvimSpectre.toggle, {
       desc = 'Toggle Spectre',
     })
 

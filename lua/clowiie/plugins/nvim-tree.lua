@@ -15,9 +15,9 @@ return {
           highlight_modified = 'all',
           highlight_git = true,
 
-          indent_markers = {
-            enable = true,
-          },
+          -- indent_markers = {
+          --   enable = true,
+          -- },
           icons = {
             glyphs = {
               folder = {
