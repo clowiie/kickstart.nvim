@@ -25,15 +25,12 @@ function M.open()
     M.buf = vim.api.nvim_create_buf(false, true)
 
     vim.bo[M.buf].buflisted = false
-    -- vim.bo[M.buf].bufhidden = 'hide'
     vim.bo[M.buf].swapfile = false
   end
 
   vim.api.nvim_win_set_buf(M.win, M.buf)
-  -- vim.api.nvim_set_current_win(M.win)
-  -- vim.api.nvim_set_current_buf(M.buf)
 
-  if not M.job then
+  if not M.job or vim.bo[M.buf].buftype ~= 'terminal' then
     M.job = vim.fn.jobstart({ vim.o.shell }, { term = true })
 
     vim.api.nvim_chan_send(M.job, 'copilot\n')
