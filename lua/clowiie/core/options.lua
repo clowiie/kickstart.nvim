@@ -93,16 +93,8 @@ vim.o.backspace = 'indent,eol,start' -- allow backspace on indent, end of line o
 vim.diagnostic.config { -- https://neovim.io/doc/user/diagnostic.html
   virtual_text = false,
   signs = false,
-  float = { border = 'rounded' },
+  float = { border = 'solid' },
 }
-
--- lsp
-vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-  border = 'rounded',
-})
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = 'rounded',
-})
 
 vim.o.wrap = false
 vim.o.background = 'dark'

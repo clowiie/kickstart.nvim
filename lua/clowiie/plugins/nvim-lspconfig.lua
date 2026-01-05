@@ -153,6 +153,13 @@ return {
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
           end, '[T]oggle Inlay [H]ints')
         end
+
+        local orig = vim.lsp.util.open_floating_preview
+        vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
+          opts = opts or {}
+          opts.border = 'solid'
+          return orig(contents, syntax, opts, ...)
+        end
       end,
     })
 
