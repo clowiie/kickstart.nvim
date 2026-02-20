@@ -28,7 +28,6 @@ return {
       group = lint_augroup,
 
       pattern = { '*.tsx', '*.ts', '*.jsx', '*.js' },
-      -- command = 'silent! EslintFixAll',
       command = 'LspEslintFixAll',
     })
 

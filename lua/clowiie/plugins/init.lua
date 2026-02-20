@@ -4,7 +4,6 @@ return {
   require 'clowiie.plugins.bufferline',
   require 'clowiie.plugins.colorscheme',
   require 'clowiie.plugins.conform',
-  require 'clowiie.plugins.copilot',
   require 'clowiie.plugins.dressing',
   require 'clowiie.plugins.gitsigns',
   require 'clowiie.plugins.grug-far',
