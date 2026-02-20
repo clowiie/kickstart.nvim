@@ -8,7 +8,6 @@ return {
   require 'clowiie.plugins.dressing',
   require 'clowiie.plugins.gitsigns',
   require 'clowiie.plugins.grug-far',
-  require 'clowiie.plugins.lazydev',
   require 'clowiie.plugins.linting',
   require 'clowiie.plugins.lualine',
   require 'clowiie.plugins.mini',
