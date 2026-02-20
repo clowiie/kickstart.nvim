@@ -52,15 +52,21 @@ return {
         -- mappings = {
         --   i = { ['<c-enter>'] = 'to_fuzzy_refine' },
         -- },
-        -- file_ignore_patterns = {
-        --   'node_modules',
-        --   '.git',
-        --   'dist',
-        --   'package.lock',
-        --   'yarn.lock',
-        -- },
+        hidden = true,
+        file_ignore_patterns = {
+          'node_modules/',
+          '%.git/',
+          'dist/',
+        },
       },
-      -- pickers = {}
+      pickers = {
+        find_files = {
+          hidden = true,
+        },
+        live_grep = {
+          additional_args = { '--hidden' },
+        },
+      },
       extensions = {
         ['ui-select'] = {
           require('telescope.themes').get_dropdown(),
