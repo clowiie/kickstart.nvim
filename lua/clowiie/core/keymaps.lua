@@ -1,5 +1,5 @@
 local UIUtils = require 'clowiie.utils.ui'
-local CopilotAgentUtils = require 'clowiie.utils.copilot-agent'
+local TerminalUtils = require 'clowiie.utils.terminal'
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -66,5 +66,4 @@ vim.keymap.set('n', '<leader>qa', '<cmd>qa<cr>', { desc = 'Quit All' })
 -- close buffer
 vim.keymap.set('n', '<C-c>', UIUtils.bufremove, { desc = 'Delete Buffer' })
 
--- terminal in a vertical split
-vim.keymap.set('n', '<leader>A', CopilotAgentUtils.toggle, { desc = 'Copilot Agent' })
+vim.keymap.set('n', '<leader>T', TerminalUtils.toggle, { desc = 'Terminal' })
