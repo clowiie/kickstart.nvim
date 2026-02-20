@@ -6,7 +6,6 @@ return {
     -- Mason must be loaded before its dependents so we need to set it up here.
     -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
     { 'mason-org/mason.nvim', opts = {} },
-    'mason-org/mason-lspconfig.nvim',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
 
     -- Useful status updates for LSP.
@@ -121,22 +120,6 @@ return {
       end,
     })
 
-    -- Diagnostic Config
-    -- See :help vim.diagnostic.Opts
-    vim.diagnostic.config {
-      update_in_insert = false,
-      severity_sort = true,
-      float = { border = 'rounded', source = 'if_many' },
-      underline = { severity = vim.diagnostic.severity.ERROR },
-
-      -- Can switch between these as you prefer
-      virtual_text = true, -- Text shows up at the end of the line
-      virtual_lines = false, -- Test shows up underneath the line, with virtual lines
-
-      -- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
-      jump = { float = true },
-    }
-
     -- LSP servers and clients are able to communicate to each other what features they support.
     --  By default, Neovim doesn't support everything that is in the LSP specification.
     --  When you add blink.cmp, luasnip, etc. Neovim now has *more* capabilities.
@@ -145,19 +128,12 @@ return {
 
     -- Enable the following language servers
     --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
-    --
-    --  Add any additional override configuration in the following tables. Available keys are:
-    --  - cmd (table): Override the default command used to start the server
-    --  - filetypes (table): Override the default list of associated filetypes for the server
-    --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
-    --  - settings (table): Override the default settings passed when initializing the server.
-    --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+    --  See `:help lsp-config` for information about keys and how to configure
     local servers = {
       -- clangd = {},
       -- gopls = {},
       -- pyright = {},
       -- rust_analyzer = {},
-      -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
       --
       -- Some languages (like typescript) have entire language plugins that can be useful:
       --    https://github.com/pmizio/typescript-tools.nvim
@@ -185,6 +161,7 @@ return {
     -- You can press `g?` for help in this menu.
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
+      'lua_ls', -- Lua Language server
       'stylua', -- Used to format Lua code
       -- You can add other tools here that you want Mason to install
       'prettier',
@@ -199,6 +176,7 @@ return {
       vim.lsp.enable(name)
     end
 
+    -- Special Lua Config, as recommended by neovim help docs
     vim.lsp.config('lua_ls', {
       on_init = function(client)
         if client.workspace_folders then
@@ -209,10 +187,7 @@ return {
         client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
           runtime = {
             version = 'LuaJIT',
-            path = {
-              'lua/?.lua',
-              'lua/?/init.lua',
-            },
+            path = { 'lua/?.lua', 'lua/?/init.lua' },
           },
           workspace = {
             checkThirdParty = false,

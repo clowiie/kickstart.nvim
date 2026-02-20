@@ -8,7 +8,22 @@ local TerminalUtils = require 'clowiie.utils.terminal'
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
--- Diagnostic keymaps
+-- Diagnostic Config & Keymaps
+-- See :help vim.diagnostic.Opts
+vim.diagnostic.config {
+  update_in_insert = false,
+  severity_sort = true,
+  float = { border = 'rounded', source = 'if_many' },
+  underline = { severity = vim.diagnostic.severity.ERROR },
+
+  -- Can switch between these as you prefer
+  virtual_text = true, -- Text shows up at the end of the line
+  virtual_lines = false, -- Teest shows up underneath the line, with virtual lines
+
+  -- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
+  jump = { float = true },
+}
+
 vim.keymap.set('n', '<leader>xq', vim.diagnostic.setloclist, { desc = 'Open [D]iagnostic [Q]uickfix list' })
 vim.keymap.set('n', '<leader>xx', function()
   -- If we find a floating window, close it.
@@ -20,9 +35,7 @@ vim.keymap.set('n', '<leader>xx', function()
     end
   end
 
-  if found_float then
-    return
-  end
+  if found_float then return end
 
   vim.diagnostic.open_float(nil, { focus = false, scope = 'cursor' })
 end, { desc = 'Open [D]iagnostic' })

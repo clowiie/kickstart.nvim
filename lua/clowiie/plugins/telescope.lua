@@ -76,9 +76,7 @@ return {
         },
       },
       extensions = {
-        ['ui-select'] = {
-          require('telescope.themes').get_dropdown(),
-        },
+        ['ui-select'] = { require('telescope.themes').get_dropdown() },
       },
     }
 
@@ -101,11 +99,7 @@ return {
     -- vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
     -- This runs on LSP attach per buffer (see main LSP attach function in 'neovim/nvim-lspconfig' config for more info,
-    -- it is better explained there). This is a little bit redundant, but we can switch off telescope for an optional
-    -- picker like snacks more easily when the keymaps are defined in the plugin itself.
-    -- It sets up buffer-local keymaps, autocommands, and other LSP-related settings
-    -- whenever an LSP client attaches to a buffer.
-
+    -- it is better explained there). This allows easily switching between pickers if you prefer using something else!
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('telescope-lsp-attach', { clear = true }),
       callback = function(event)
@@ -138,7 +132,7 @@ return {
       end,
     })
 
-    -- Slightly advanced example of overriding default behavior and theme
+    -- Override default behavior and theme when searching
     -- vim.keymap.set('n', '<leader>/', function()
     --   -- You can pass additional configuration to Telescope to change the theme, layout, etc.
     --   builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
