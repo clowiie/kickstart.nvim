@@ -5,10 +5,10 @@ return {
     local lint = require 'lint'
 
     lint.linters_by_ft = {
-      javascript = { 'eslint_d' },
-      typescript = { 'eslint_d' },
-      javascriptreact = { 'eslint_d' },
-      typescriptreact = { 'eslint_d' },
+      javascript = { 'oxlint', 'eslint_d' },
+      typescript = { 'oxlint', 'eslint_d' },
+      javascriptreact = { 'oxlint', 'eslint_d' },
+      typescriptreact = { 'oxlint', 'eslint_d' },
       markdown = { 'markdownlint' },
     }
 
@@ -24,15 +24,6 @@ return {
       end,
     })
 
-    vim.api.nvim_create_autocmd('BufWritePre', {
-      group = lint_augroup,
-
-      pattern = { '*.tsx', '*.ts', '*.jsx', '*.js' },
-      command = 'LspEslintFixAll',
-    })
-
-    -- vim.keymap.set("n", "<leader>l", function()
-    --   lint.try_lint()
-    -- end, { desc = "Trigger linting for current file" })
+    vim.keymap.set('n', '<leader>l', function() lint.try_lint() end, { desc = 'Trigger linting for current file' })
   end,
 }

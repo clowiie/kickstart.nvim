@@ -1,5 +1,6 @@
 local UIUtils = require 'clowiie.utils.ui'
 local TerminalUtils = require 'clowiie.utils.terminal'
+local ClaudeUtils = require 'clowiie.utils.claude'
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -79,4 +80,11 @@ vim.keymap.set('n', '<leader>qa', '<cmd>qa<cr>', { desc = 'Quit All' })
 -- close buffer
 vim.keymap.set('n', '<C-c>', UIUtils.bufremove, { desc = 'Delete Buffer' })
 
-vim.keymap.set('n', '<leader>T', TerminalUtils.toggle, { desc = 'Terminal' })
+vim.keymap.set({ 'n', 't' }, '<C-\\>', TerminalUtils.toggle, { desc = 'Terminal' })
+
+-- Toggle Claude terminal with Control+/
+-- macOS/Alacritty usually sends <C-_> for Ctrl+/, some terminals send <C-/> directly.
+-- Map both, and in terminal mode too so it can be toggled from inside Claude.
+for _, key in ipairs { '<C-_>', '<C-/>' } do
+  vim.keymap.set({ 'n', 't' }, key, ClaudeUtils.toggle, { desc = 'Toggle Claude' })
+end

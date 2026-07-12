@@ -10,14 +10,11 @@ function M.open()
   BufferTab.open(M, function()
     if not M.job or vim.bo[M.buf].buftype ~= 'terminal' then
       M.job = vim.fn.jobstart({ vim.o.shell }, { term = true })
-      vim.cmd 'wincmd T'
-      vim.cmd 'startinsert'
     end
+    vim.cmd 'startinsert'
   end)
 end
 
-function M.toggle()
-  BufferTab.toggle(M, M.open)
-end
+function M.toggle() BufferTab.toggle(M, M.open) end
 
 return M
