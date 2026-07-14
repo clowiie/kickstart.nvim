@@ -96,3 +96,10 @@ vim.diagnostic.config { -- https://neovim.io/doc/user/diagnostic.html
 
 vim.o.wrap = false
 vim.o.background = 'dark'
+
+vim.o.autoread = true
+vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'CursorHold', 'CursorHoldI', 'TermLeave' }, {
+  callback = function()
+    if vim.bo.buftype ~= 'terminal' and vim.fn.mode() == 'n' then vim.cmd 'checktime' end
+  end,
+})

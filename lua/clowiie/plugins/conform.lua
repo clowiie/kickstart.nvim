@@ -30,14 +30,38 @@ return {
       -- have a well standardized coding style. You can add additional
       -- languages here or re-enable it for the disabled ones.
       local disable_filetypes = { c = true, cpp = true }
-      if disable_filetypes[vim.bo[bufnr].filetype] then
-        return nil
-      else
-        return {
-          timeout_ms = 500,
-          lsp_format = 'fallback',
-        }
+
+      if disable_filetypes[vim.bo[bufnr].filetype] then return nil end
+
+      local ts_filetypes = {
+        javascript = true,
+        javascriptreact = true,
+        typescript = true,
+        typescriptreact = true,
+      }
+
+      if ts_filetypes[vim.bo[bufnr].filetype] then
+        local eslint_active, oxlint_active = false, false
+        for _, client in ipairs(vim.lsp.get_clients { bufnr = bufnr }) do
+          if client.name == 'eslint' then eslint_active = true end
+          if client.name == 'oxlint' then oxlint_active = true end
+        end
+
+        if eslint_active then
+          vim.cmd 'LspEslintFixAll'
+          return {
+            timeout_ms = 500,
+            lsp_format = 'prettier',
+          }
+        elseif oxlint_active then
+          vim.cmd 'LspOxlintFixAll'
+        end
       end
+
+      return {
+        timeout_ms = 500,
+        lsp_format = 'fallback',
+      }
     end,
   },
 }

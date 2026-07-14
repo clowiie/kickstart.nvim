@@ -134,14 +134,22 @@ return {
     --
     -- You can press `g?` for help in this menu.
     local ensure_installed = {
-      'lua-language-server', -- Lua Language server
-      'stylua', -- Used to format Lua code
-      -- You can add other tools here that you want Mason to install
+      --- lua
+      'lua-language-server',
+      'stylua',
+
+      -- typescript
       'typescript-language-server',
       'prettier',
       'eslint-lsp',
       'eslint_d',
+      'oxlint',
+      'oxfmt',
+
+      -- json
       'json-lsp',
+
+      -- go
       'gopls',
     }
 
@@ -170,8 +178,12 @@ return {
       --   },
       -- },
 
+      lua_ls = {},
+      stylua = {},
+
       ts_ls = {},
       eslint = {},
+      oxlint = {},
       gopls = {},
     }
 
