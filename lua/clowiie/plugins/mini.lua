@@ -61,7 +61,7 @@ return {
       end,
     })
 
-    vim.api.nvim_create_autocmd({ 'TextChangedI' }, {
+    vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI' }, {
       callback = function(args)
         local data = mini_diff.get_buf_data(args.buf)
 
