@@ -26,12 +26,13 @@ return {
       typescriptreact = { 'oxfmt', 'prettier', stop_after_first = true },
     },
     format_on_save = function(bufnr)
-      -- Disable "format_on_save lsp_fallback" for languages that don't
-      -- have a well standardized coding style. You can add additional
-      -- languages here or re-enable it for the disabled ones.
+      local timeout_ms = 500
+
       local disable_filetypes = { c = true, cpp = true }
 
-      if disable_filetypes[vim.bo[bufnr].filetype] then return nil end
+      local filetype = vim.bo[bufnr].filetype
+
+      if disable_filetypes[filetype] then return nil end
 
       local ts_filetypes = {
         javascript = true,
@@ -40,28 +41,28 @@ return {
         typescriptreact = true,
       }
 
-      if ts_filetypes[vim.bo[bufnr].filetype] then
-        local eslint_active, oxlint_active = false, false
-        for _, client in ipairs(vim.lsp.get_clients { bufnr = bufnr }) do
-          if client.name == 'eslint' then eslint_active = true end
-          if client.name == 'oxlint' then oxlint_active = true end
-        end
+      if not ts_filetypes[filetype] then return {
+        timeout_ms = timeout_ms,
+        lsp_format = 'fallback',
+      } end
 
-        if eslint_active then
-          vim.cmd 'LspEslintFixAll'
-          return {
-            timeout_ms = 500,
-            lsp_format = 'prettier',
-          }
-        elseif oxlint_active then
-          vim.cmd 'LspOxlintFixAll'
-        end
+      local eslint_active, oxlint_active = false, false
+      for _, client in ipairs(vim.lsp.get_clients { bufnr = bufnr }) do
+        if client.name == 'eslint' then eslint_active = true end
+        if client.name == 'oxlint' then oxlint_active = true end
       end
 
-      return {
-        timeout_ms = 500,
-        lsp_format = 'fallback',
-      }
+      if eslint_active then
+        return {
+          timeout_ms = timeout_ms,
+          formatters = { 'prettier' },
+        }
+      elseif oxlint_active then
+        return {
+          timeout_ms = timeout_ms,
+          formatters = { 'oxfmt' },
+        }
+      end
     end,
   },
 }
