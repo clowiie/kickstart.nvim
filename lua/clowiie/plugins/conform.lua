@@ -52,6 +52,11 @@ return {
         if client.name == 'oxlint' then oxlint_active = true end
       end
 
+      if not eslint_active and oxlint_active then return {
+        timeout_ms = timeout_ms,
+        lsp_format = 'fallback',
+      } end
+
       if eslint_active then
         return {
           timeout_ms = timeout_ms,
