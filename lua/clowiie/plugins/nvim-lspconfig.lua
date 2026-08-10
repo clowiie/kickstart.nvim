@@ -158,6 +158,8 @@ return {
     -- Enable the following language servers
     --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
     --  See `:help lsp-config` for information about keys and how to configure
+    local mason_ts = vim.fn.stdpath 'data' .. '/mason/packages/typescript-language-server/node_modules/typescript/lib/tsserver.js'
+
     local servers = {
       -- clangd = {},
       -- pyright = {},
@@ -181,9 +183,15 @@ return {
       lua_ls = {},
       stylua = {},
 
-      ts_ls = {},
+      ts_ls = {
+        init_options = {
+          tsserver = { path = mason_ts },
+        },
+      },
       eslint = {},
-      oxlint = {},
+      oxlint = {
+        settings = { typeAware = true, run = 'onSave' },
+      },
       gopls = {},
     }
 

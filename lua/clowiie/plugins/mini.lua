@@ -50,6 +50,8 @@ return {
         if overlay_opened[args.buf] then return end
 
         vim.schedule(function()
+          if not vim.api.nvim_buf_is_valid(args.buf) then return end
+
           local data = mini_diff.get_buf_data(args.buf)
 
           if not data then return end
