@@ -17,7 +17,9 @@ return {
     -- - sr)'  - [S]urround [R]eplace [)] [']
     require('mini.surround').setup()
 
-    require('mini.diff').setup()
+    require('mini.diff').setup {
+      options = { linematch = 0 },
+    }
 
     local function diff_overlay_hl()
       local add_line, add_word = '#11280a', '#1f4413'
